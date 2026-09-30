@@ -1,0 +1,85 @@
+@import '@fontsource/cormorant-infant/400.css';
+@import '@fontsource/cormorant-infant/400-italic.css';
+@import '@fontsource/cormorant-infant/600.css';
+@import '@fontsource/great-vibes/400.css';
+@import '@fontsource/noto-naskh-arabic/400.css';
+@import '@fontsource/noto-naskh-arabic/600.css';
+
+/* Tokens from the ui-ux-pro-max design system: Soft UI Evolution, rose + gold */
+:root{color-scheme:light;--err:#b91c1c;--bg:#fdf2f8;--fg:#831843;--card:#fff;--mut:#475569;--line:#fbcfe8;--pri:#db2777;--on-pri:#fff;--gold:#a16207;--ring:#db2777;
+ --shadow:0 1px 0 #fff inset,0 14px 34px -14px rgba(131,24,67,.28);--serif:'Cormorant Infant',Georgia,'Noto Naskh Arabic',serif}
+@media(prefers-color-scheme:dark){:root{color-scheme:dark;--err:#fca5a5;--bg:#1b1016;--fg:#fbcfe8;--card:#26161e;--mut:#c9b3bf;--line:#4a2a3a;--pri:#f472b6;--on-pri:#2a0b19;--gold:#e5c26b;--ring:#f472b6;--shadow:0 14px 34px -14px #000}}
+*{box-sizing:border-box}
+body{margin:0;color:var(--fg);font:16px/1.55 system-ui,-apple-system,'Segoe UI',Roboto,'Noto Naskh Arabic',sans-serif;
+ background:radial-gradient(900px 420px at 85% -10%,color-mix(in srgb,var(--pri) 14%,transparent),transparent),radial-gradient(700px 360px at -5% 20%,color-mix(in srgb,var(--gold) 12%,transparent),transparent),var(--bg);min-height:100dvh}
+a{color:var(--pri)}
+:focus-visible{outline:3px solid var(--ring);outline-offset:2px}
+.top{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:calc(10px + env(safe-area-inset-top)) 20px 10px;backdrop-filter:blur(12px);background:color-mix(in srgb,var(--bg) 80%,transparent);border-bottom:1px solid var(--line)}
+.brand{font:600 1.35rem var(--serif);text-decoration:none;color:var(--fg)}
+.top nav{display:flex;gap:4px;flex-wrap:wrap}
+.top nav a{padding:10px 12px;border-radius:999px;text-decoration:none;color:var(--mut);min-height:44px;display:inline-flex;align-items:center;transition:background .2s,color .2s}
+.top nav a:hover{background:var(--line)}.top nav a[aria-current=page]{background:var(--pri);color:var(--on-pri)}
+.hero{max-width:760px;margin:0 auto;padding:44px 20px 8px;text-align:center}
+.hero h1{font:600 clamp(2rem,5vw,3.4rem)/1.1 var(--serif);margin:0 0 12px;text-wrap:balance}
+.hero p{color:var(--mut);margin:0 auto;max-width:56ch}
+.grid{display:grid;grid-template-columns:minmax(0,440px) minmax(0,1fr);gap:32px;max-width:1080px;margin:0 auto;padding:28px 20px 60px}
+@media(max-width:860px){.grid{grid-template-columns:1fr}.stage{order:-1;position:static!important}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow);margin-bottom:16px}
+.panel h3{margin:0 0 10px;display:flex;gap:8px;align-items:center;font:600 1.25rem var(--serif)}
+.f{margin-bottom:14px}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label,.lbl{display:block;font-size:.85rem;color:var(--mut);margin-bottom:5px}
+input,select,textarea{width:100%;min-height:44px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--fg);font:inherit;transition:border-color .2s,box-shadow .2s}
+input:hover,select:hover,textarea:hover{border-color:var(--pri)}
+input:focus,select:focus,textarea:focus{border-color:var(--pri);box-shadow:0 0 0 3px color-mix(in srgb,var(--pri) 25%,transparent);outline:0}
+textarea{min-height:76px;resize:vertical}
+.hint{font-size:.82rem;color:var(--mut)}.center{text-align:center}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.sw{width:44px;height:44px;border-radius:50%;border:2px solid var(--line);cursor:pointer;transition:transform .2s,border-color .2s}
+.chip{min-width:44px;min-height:44px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer;display:inline-grid;place-items:center;padding:0 12px;font:inherit;transition:background .2s,transform .2s}
+.sw:hover,.chip:hover{transform:translateY(-2px)}
+.sw[aria-pressed=true]{border-color:var(--fg);transform:scale(1.08)}
+.chip[aria-pressed=true]{background:var(--pri);color:var(--on-pri);border-color:var(--pri)}
+.btn{display:inline-flex;gap:8px;align-items:center;justify-content:center;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--pri);background:var(--pri);color:var(--on-pri);font:600 1rem inherit;font-family:inherit;text-decoration:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 20px -10px var(--pri)}.btn:active{transform:none}
+.btn.alt{background:transparent;color:var(--fg);border-color:var(--line)}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.stage{position:sticky;top:84px;align-self:start}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:10px 18px;border-radius:999px;animation:up .3s both}
+/* The invitation */
+.tilt{perspective:1000px;--rx:0deg;--ry:0deg;--mx:50%;--my:30%}
+.face{position:relative;overflow:hidden;max-width:420px;margin:0 auto;aspect-ratio:4/5;min-height:480px;padding:44px 34px;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;
+ background:linear-gradient(160deg,var(--from),var(--to));color:var(--ink);font-family:var(--serif);box-shadow:0 30px 50px -24px rgba(0,0,0,.45);
+ transform:rotateX(var(--rx)) rotateY(var(--ry));transition:transform .18s ease-out;animation:enter .7s cubic-bezier(.2,.8,.2,1) both;overflow-wrap:anywhere}
+.face::before{content:'';position:absolute;inset:12px;border:1px solid var(--gold);border-radius:12px;opacity:.75;pointer-events:none}
+.cn{position:absolute;width:38px;color:var(--gold)}.tl{top:16px;left:16px}.tr{top:16px;right:16px;transform:scaleX(-1)}.bl{bottom:16px;left:16px;transform:scaleY(-1)}.br{bottom:16px;right:16px;transform:scale(-1)}
+.orn{color:var(--gold)}.inv{margin:0;font-style:italic;font-size:1.2rem;opacity:.9}
+.ttl{margin:4px 0;font:400 clamp(2.4rem,9vw,3.3rem)/1.05 'Great Vibes','Noto Naskh Arabic',cursive}
+[dir=rtl] .ttl{font:600 2.3rem/1.4 'Noto Naskh Arabic',serif}
+.by{margin:0;opacity:.85}
+.date{display:grid;justify-items:center;margin-top:10px}.date span{font-size:1.1rem}.date b{font:600 4.2rem/1 var(--serif);color:var(--gold)}
+.time{margin:2px 0;font-size:1.2rem}.pl{display:flex;gap:6px;align-items:center;margin:4px 0}
+.msg{margin:8px 0 0;font-style:italic;white-space:pre-wrap;opacity:.9;max-width:30ch}
+.modern{align-items:flex-start;text-align:start}.modern .ttl{font:600 italic 2.6rem/1.1 var(--serif)}.modern .date{justify-items:start}
+.shine{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--mx) var(--my),rgba(255,255,255,.4),transparent 45%);mix-blend-mode:soft-light;opacity:0;transition:opacity .25s}
+.tilt:hover .shine{opacity:1}
+/* Guest: sealed envelope -> card rises */
+.guest{max-width:520px;margin:0 auto;padding:28px 20px 60px}
+.sealed{text-align:center;padding-top:12vh}
+.env{position:relative;width:min(340px,86vw);height:220px;border:0;border-radius:14px;cursor:pointer;background:linear-gradient(160deg,#f7d9e4,#eeb6cb);box-shadow:var(--shadow);display:block;margin:18px auto;perspective:600px;transition:transform .2s}
+.env:hover:not(:disabled){transform:translateY(-4px) rotate(-1deg)}
+.flap{position:absolute;inset:0 0 auto 0;height:60%;background:linear-gradient(#e6a3bd,#d98aa9);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .7s ease}
+.env.opening .flap{transform:rotateX(180deg)}
+.seal{position:absolute;left:50%;top:48%;translate:-50% -50%;width:52px;height:52px;border-radius:50%;background:var(--gold);color:#fff;display:grid;place-items:center;box-shadow:0 4px 10px rgba(0,0,0,.25)}
+.cta{position:absolute;bottom:16px;inset-inline:0;color:#6b1b3d;font-weight:600}
+.rise{animation:up .6s cubic-bezier(.2,.8,.2,1) both}
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes enter{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.face{transform:none!important}}
+
+/* validation, counters, language dropdown */
+.langsel{width:auto;min-width:130px;border-radius:999px;cursor:pointer}
+.cnt{float:inline-end;font-size:.78rem}
+.err{margin:4px 0 0;font-size:.82rem;color:var(--err)}
+input[aria-invalid=true],select[aria-invalid=true]{border-color:var(--err)}
+input::-webkit-calendar-picker-indicator{cursor:pointer}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}

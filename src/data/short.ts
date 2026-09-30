@@ -1,0 +1,16 @@
+import type { Lang } from './locales'
+export interface Extra { btn: string; done: string; fail: string; note: string; edit: string; png: string; jpg: string; dateReq: string; past: string; durBad: string; waBad: string; mapBad: string; fix: string; lang: string }
+export const S: Record<Lang, Extra> = {
+  en: { btn: 'Make short link', done: 'Short link (copied)', fail: 'Short link unavailable. Use the full link.', note: 'Short links keep the invitation on our server until 30 days after the event. The full link stores nothing.', edit: 'Edit a copy of this invitation',
+    png: 'Download PNG', jpg: 'Download JPG', dateReq: 'Choose a date and time.', past: 'This date and time has already passed. Choose a future time.', durBad: 'Duration must be between 15 and 1440 minutes.',
+    waBad: 'Use international format with country code, for example +923001234567.', mapBad: 'Enter a full link starting with http:// or https://.', fix: 'Fix the highlighted fields to share or download.', lang: 'Language' },
+  es: { btn: 'Crear enlace corto', done: 'Enlace corto (copiado)', fail: 'Enlace corto no disponible. Usa el enlace completo.', note: 'Los enlaces cortos guardan la invitación en nuestro servidor hasta 30 días después del evento. El enlace completo no guarda nada.', edit: 'Editar una copia de esta invitación',
+    png: 'Descargar PNG', jpg: 'Descargar JPG', dateReq: 'Elige fecha y hora.', past: 'Esa fecha y hora ya pasó. Elige una hora futura.', durBad: 'La duración debe estar entre 15 y 1440 minutos.',
+    waBad: 'Usa formato internacional con código de país, por ejemplo +34612345678.', mapBad: 'Escribe un enlace completo que empiece con http:// o https://.', fix: 'Corrige los campos marcados para compartir o descargar.', lang: 'Idioma' },
+  pt: { btn: 'Criar link curto', done: 'Link curto (copiado)', fail: 'Link curto indisponível. Use o link completo.', note: 'Links curtos guardam o convite em nosso servidor até 30 dias após o evento. O link completo não guarda nada.', edit: 'Editar uma cópia deste convite',
+    png: 'Baixar PNG', jpg: 'Baixar JPG', dateReq: 'Escolha data e hora.', past: 'Essa data e hora já passou. Escolha um horário futuro.', durBad: 'A duração deve ficar entre 15 e 1440 minutos.',
+    waBad: 'Use o formato internacional com código do país, por exemplo +5511912345678.', mapBad: 'Digite um link completo começando com http:// ou https://.', fix: 'Corrija os campos destacados para compartilhar ou baixar.', lang: 'Idioma' },
+  ar: { btn: 'إنشاء رابط قصير', done: 'الرابط القصير (تم النسخ)', fail: 'الرابط القصير غير متاح. استخدم الرابط الكامل.', note: 'تحفظ الروابط القصيرة الدعوة على خادمنا حتى 30 يومًا بعد الحدث. الرابط الكامل لا يحفظ شيئًا.', edit: 'عدّل نسخة من هذه الدعوة',
+    png: 'تنزيل PNG', jpg: 'تنزيل JPG', dateReq: 'اختر التاريخ والوقت.', past: 'هذا الموعد قد مضى. اختر وقتًا في المستقبل.', durBad: 'يجب أن تكون المدة بين 15 و1440 دقيقة.',
+    waBad: 'استخدم الصيغة الدولية مع رمز الدولة، مثل +966501234567.', mapBad: 'أدخل رابطًا كاملًا يبدأ بـ http:// أو https://.', fix: 'صحّح الحقول المحددة للمشاركة أو التنزيل.', lang: 'اللغة' },
+}

@@ -1,0 +1,13 @@
+name = "rsvp-invitation-maker-dev"
+main = "worker/index.ts"
+compatibility_date = "2026-09-01"
+
+# API only. `vite dev` serves the site and proxies /api to this Worker.
+[[kv_namespaces]]
+binding = "INVITES"
+id = "local-dev"            # local KV simulation, no Cloudflare account needed
+
+[[ratelimits]]
+name = "LIMITER"
+namespace_id = "1001"
+simple = { limit = 10, period = 60 }

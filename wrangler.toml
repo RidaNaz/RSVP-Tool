@@ -1,10 +1,23 @@
-name = "rsvp-short"
+name = "rsvp-invitation-maker"
 main = "worker/index.ts"
 compatibility_date = "2026-09-01"
 
+# One Worker serves the prerendered site AND the short-link API on the same domain (no CORS).
+# Build first: `npm run build` -> dist/client
+[assets]
+directory = "./dist/client"
+not_found_handling = "404-page"
+run_worker_first = ["/api/*"]           # only /api/* runs Worker code; everything else is static and free
+
 [[kv_namespaces]]
 binding = "INVITES"
-id = "REPLACE_WITH_KV_NAMESPACE_ID"   # from: npx wrangler kv namespace create INVITES
+id = "REPLACE_WITH_KV_NAMESPACE_ID"     # from: npx wrangler kv namespace create INVITES
 
-# After the site is on your domain, route the API to this Worker (same domain = no CORS):
-# routes = [{ pattern = "yourdomain.com/api/*", zone_name = "yourdomain.com" }]
+# Abuse control for POST /api/s. Verify the current binding syntax and limits in the Cloudflare docs before deploying.
+[[ratelimits]]
+name = "LIMITER"
+namespace_id = "1001"
+simple = { limit = 10, period = 60 }
+
+# Add your domain once ready:
+# routes = [{ pattern = "yourdomain.com", custom_domain = true }]

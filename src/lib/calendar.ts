@@ -24,7 +24,7 @@ function ev(o: Invite) {
     title: o.t || OCC[o.o]?.[LI[lang]] || l.inv,   // same fallback as the card: the occasion name
     place: o.vn || o.mp,
     url: o.mp,
-    desc: [o.n, o.h && `${l.by}: ${o.h}`, o.mp, o.wa && `WhatsApp: ${o.wa}`].filter(Boolean).join(''),
+    desc: [o.n, o.h && `${l.by}: ${o.h}`, o.mp, o.wa && `WhatsApp: ${o.wa}`].filter(Boolean).join('\n'),
   }
 }
 export function gcalURL(o: Invite) {
@@ -32,14 +32,29 @@ export function gcalURL(o: Invite) {
   return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(x.title)}&dates=${stamp(x.s)}/${stamp(x.e)}&details=${encodeURIComponent(x.desc)}&location=${encodeURIComponent(x.place)}`
 }
 const hash = (s: string) => { let h = 5381; for (const c of s) h = ((h * 33) ^ c.charCodeAt(0)) >>> 0; return h.toString(36) }
+/** RFC 5545: text values escape \\ ; , and newlines; content lines longer than 75 octets are folded (CRLF + space). */
+const esc = (t: string) => t.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n')
+function fold(line: string) {
+  const enc = new TextEncoder(); let out = '', cur = '', bytes = 0
+  for (const ch of line) {
+    const n = enc.encode(ch).length
+    if (bytes + n > (out ? 74 : 75)) { out += (out ? '\r\n ' : '') + cur; cur = ''; bytes = 0 }
+    cur += ch; bytes += n
+  }
+  return out + (out ? '\r\n ' : '') + cur
+}
 export function icsText(o: Invite) {
-  const x = ev(o), f = (t: string) => t.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n')
-  return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//RSVP Invitation Maker//EN', 'BEGIN:VEVENT', `UID:${hash(JSON.stringify(o))}@rsvp-invitation`, `DTSTAMP:${stamp(new Date())}`,
-    `DTSTART:${stamp(x.s)}`, `DTEND:${stamp(x.e)}`, `SUMMARY:${f(x.title)}`, `LOCATION:${f(x.place)}`, ...(x.url ? [`URL:${x.url}`] : []), `DESCRIPTION:${f(x.desc)}`, 'END:VEVENT', 'END:VCALENDAR'].join('\r\n')
+  const x = ev(o)
+  return [
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//RSVP Invitation Maker//EN', 'CALSCALE:GREGORIAN', 'BEGIN:VEVENT',
+    `UID:${hash(JSON.stringify(o))}@rsvp-invitation`, `DTSTAMP:${stamp(new Date())}`, `DTSTART:${stamp(x.s)}`, `DTEND:${stamp(x.e)}`,
+    `SUMMARY:${esc(x.title)}`, `LOCATION:${esc(x.place)}`, ...(x.url ? [`URL:${x.url}`] : []), `DESCRIPTION:${esc(x.desc)}`, 'END:VEVENT', 'END:VCALENDAR',
+  ].map(fold).join('\r\n') + '\r\n'
 }
 export function downloadICS(o: Invite) {
   const a = document.createElement('a')
   a.href = URL.createObjectURL(new Blob([icsText(o)], { type: 'text/calendar;charset=utf-8' }))
   a.download = 'invitation.ics'
   document.body.append(a); a.click(); a.remove()
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000)
 }

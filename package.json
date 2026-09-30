@@ -7,8 +7,9 @@
     "build": "vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "worker:dev": "wrangler dev --port 8787",
-    "worker:deploy": "wrangler deploy"
+    "worker:dev": "wrangler dev --config wrangler.dev.toml --port 8787",
+    "worker:deploy": "wrangler deploy",
+    "deploy": "vite build && wrangler deploy"
   },
   "dependencies": {
     "@tanstack/react-router": "^1.170.40",

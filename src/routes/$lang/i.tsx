@@ -26,7 +26,7 @@ export const Route = createFileRoute('/$lang/i')({
       const load: Promise<string> = m ? Promise.resolve(m[1]) : sid && /^[a-z0-9]{7}$/.test(sid)
         ? fetch(`/api/s/${sid}`).then((r) => { if (!r.ok) throw new Error('nf'); return r.json() as Promise<{ d: string }> }).then((j) => j.d)
         : Promise.reject(new Error('none'))
-      load.then((c) => { setCode(c); return decode<Invite>(c) }).then(setO).catch(() => setBad(true))
+      load.then((c) => { setCode(c); return decode(c) }).then(setO).catch(() => setBad(true))
     }, [])
     const g = T[isLang(o?.lg ?? '') ? (o!.lg as 'en') : isLang(lang) ? lang : 'en']
     if (bad) return <div className="guest"><div className="panel">{g.bad}</div></div>
@@ -49,6 +49,7 @@ export const Route = createFileRoute('/$lang/i')({
       </div>)
     return (
       <div className="guest rise"><Card o={o} />
+        {o.mp && <p className="center"><a href={o.mp} target="_blank" rel="noopener noreferrer"><Icon n="pin" size={16} /> {X[isLang(o.lg) ? o.lg : 'en'].mapOpen}</a></p>}
         <p className="hint center">{g.local}: {fmtWhen(o, tz, o.lg)} ({tz})</p>
         <div className="panel"><h3><Icon n="cal" /> {g.cal}</h3>
           <div className="acts"><a className="btn" href={gcalURL(o)} target="_blank" rel="noopener noreferrer">{g.gcal}</a><button className="btn alt" onClick={() => downloadICS(o)}>{g.ics}</button></div>
